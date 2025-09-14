@@ -1,0 +1,100 @@
+import { CustomFormField } from "@/Components/Shared/CustomInputs";
+import { formatCurrency } from "@/helpers/formatters";
+import { useForm } from "react-hook-form";
+import CustomButton from "../../Shared/CustomButton";
+import TableOfToolsModal from "./ListOfToolsModal";
+import type { ClientType } from "@/Types/ClientTypes";
+import type { EquipmentTypeToListType } from "@/Types/EquipmentTypes";
+import { useEffect, useState } from "react";
+import type { LoanFormType } from "@/Types/LoanTypes";
+import Paragraph from "@/Components/Shared/Paragraph";
+import { numberPattern } from "@/Patterns/formsPatterns";
+import { AnimatePresence } from "motion/react";
+import AnimationContainer from "@/Components/Shared/AnimationContainer";
+import { patternNumberValidator } from "@/validations/validation";
+
+interface IModalContentProps {
+    client: ClientType;
+    toolsList: EquipmentTypeToListType[];
+    handlerSubmit: (data: LoanFormType) => Promise<void>
+}
+
+export function ModalContent({ client, toolsList, handlerSubmit }: IModalContentProps) {
+    const [clicked, setClicked] = useState<boolean>(false)
+
+    const total = toolsList.reduce((total, tool) => (tool.quantity * tool.unitPrice) + total, 0);
+    const defaultValues = {
+        deliveryCedula: 0,
+        deliveryPrice: 0,
+        clientId: client.id,
+        deposit: 0,
+        comments: "",
+        equipmentIds: {},
+    }
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm<LoanFormType>({ defaultValues });
+    useEffect(() => {
+        const record: Record<string, number> = {}
+        toolsList.forEach(t => {
+            record[t.id!.toString()] = t.quantity;
+        });
+        setValue('equipmentIds', record);
+    }, [toolsList, setValue])
+
+
+    return (
+        <>
+            <div className="flex flex-col p-2 gap-5">
+                <div>
+                    <h4 className="font-semibold text-xl">Datos del cliente</h4>
+                    <Paragraph section="Nombre" text={client.name} />
+                    <Paragraph section="Documento" text={client.cedula} />
+                    <Paragraph section="Teléfono" text={client.numberPhone} />
+                    <Paragraph section="Dirección" text={client.address} />
+                </div>
+
+                <TableOfToolsModal toolsList={toolsList} />
+
+                <span className="font-bold text-end">Total: {formatCurrency(total)}</span>
+
+                <form onSubmit={handleSubmit(handlerSubmit)} className="space-y-5">
+                    <p className="flex gap-2 items-center">¿Requiere domicilio?
+                        <span onClick={() => setClicked(!clicked)}
+                            className={`content-[''] size-5 border-2 rounded-3xl transition-colors duration-300 hover:border-blue-500 hover:cursor-pointer 
+                            ${clicked ? 'bg-blue-300 border-blue-500' : ''}`}></span>
+                    </p>
+                    <AnimatePresence>
+                        {clicked &&
+                            <AnimationContainer classToAdd="bg-white flex gap-4">
+                                <CustomFormField.Input
+                                    label="Cédula del domiciliario"
+                                    type="number"
+                                    id="DeliveryCedeula"
+                                    classAdd="w-6/12"
+                                    {...register('deliveryCedula', { pattern: patternNumberValidator })}
+                                    error={errors.deliveryCedula} />
+                                <CustomFormField.Input
+                                    label="Flete"
+                                    type="number"
+                                    id="deliveryPrice"
+                                    classAdd="w-6/12"
+                                    {...register('deliveryPrice', { pattern: patternNumberValidator })}
+                                    error={errors.deliveryPrice} />
+                            </AnimationContainer>
+                        }
+                    </AnimatePresence>
+                    <CustomFormField.Input
+                        label="Deposito"
+                        type="number"
+                        id="deposit"
+                        classAdd="w-full"
+                        {...register('deposit',
+                            { pattern: patternNumberValidator })}
+                        error={errors.deposit} />
+                    <CustomFormField.Input label="Comentarios" type="text" id="comments" classAdd="w-full" {...register('comments')} error={errors.deposit} />
+                    <CustomButton type="submit" classAdd="bg-green-500 hover:bg-green-600 text-white font-semibold w-full">Terminar Proceso </CustomButton>
+                </form>
+            </div>
+        </>
+    )
+
+}
