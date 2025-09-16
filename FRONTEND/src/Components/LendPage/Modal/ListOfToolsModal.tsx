@@ -11,7 +11,7 @@ export default function TableOfToolsModal({ toolsList }: { toolsList: EquipmentT
                 <li>Valor Día</li>
             </ul>
 
-            <div className="w-full max-h-72 overflow-y-auto">
+            <div className="w-full max-h-24 overflow-y-auto">
                 {toolsList.map((tool, i) => (
                     <ul
                         key={i}

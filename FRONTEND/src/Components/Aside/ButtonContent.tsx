@@ -11,7 +11,6 @@ interface AsideProps {
     isOpen?: boolean;
 }
 
-
 interface ButtonContentProp {
     onClick?: () => void
     isOpen?: boolean,

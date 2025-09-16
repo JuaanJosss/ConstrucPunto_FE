@@ -8,7 +8,7 @@ export default function Aside() {
     const { lendingOptions, SwitchLendingOptions, Links } = useAsideHook()
 
     return (
-        <aside className="h-screen bg-white w-[290px]">
+        <aside className="h-screen bg-white w-[290px] shadow-xl">
             <div>
                 <div className="flex justify-center my-4">
                     <Link to={routes.HOME} className="text-xl font-semibold mt-4"><img src="../logo.jpg" alt="" /></Link>

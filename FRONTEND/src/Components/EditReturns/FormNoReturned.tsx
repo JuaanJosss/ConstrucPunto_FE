@@ -3,7 +3,7 @@ import { CustomFormField } from "../Shared/CustomInputs"
 import CustomButton from "../Shared/CustomButton"
 import type { LoanByIdType } from "@/Types/LoanTypes"
 import type { INoReturnedFieldForm } from "@/Types/FormType"
-import { patternNumberValidator } from "@/validations/validation"
+import { numberPatternValidator } from "@/validations/validation"
 
 
 type Props = {
@@ -35,7 +35,7 @@ export default function FormNoReturned({ loan, errors, handleSubmit, handlerSubm
                 </div>
                 <CustomFormField.Input id="equipment" label={`Cantidad que no retornó`} type="text"
                     {...register('quantityNoReturned', {
-                        pattern: patternNumberValidator,
+                        pattern: numberPatternValidator,
                         max: { value: maxReturn, message: `No se puede exceder el limite: ${maxReturn}` },
                         validate: (e) => e.trim() !== '' || 'Este campo no puede ser vacío'
                     })} error={errors.quantityNoReturned} />

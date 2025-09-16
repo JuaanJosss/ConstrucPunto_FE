@@ -7,6 +7,10 @@ export type ISearchByNameOrDocument = {
     value: string;
 }
 
+export interface IFindEquipmentByName {
+    equipment: string;
+}
+
 export type ILoanSearchType = {
     document: string;
     date: string;

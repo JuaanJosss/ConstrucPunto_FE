@@ -3,7 +3,7 @@ import { CustomFormField } from '@/Components/Shared/CustomInputs'
 import { routes } from '@/Router/routes';
 import { useClientStore } from '@/Store/Client/ClientStore';
 import type { ClientType } from '@/Types/ClientTypes';
-import { patternAddressValidator, patternNumberValidator, requiredValidator } from '@/validations/validation';
+import { addressPatternValidator, numberPatternValidator, requiredValidator } from '@/validations/validation';
 import { ArrowLeft } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
@@ -39,7 +39,7 @@ export default function Form({ handlerSubmit, client }: { handlerSubmit: (client
                             id='document'
                             {...register('cedula', {
                                 required: requiredValidator,
-                                pattern: patternNumberValidator
+                                pattern: numberPatternValidator
                             })}
                             error={errors.cedula} />
                         <CustomFormField.Input
@@ -52,7 +52,7 @@ export default function Form({ handlerSubmit, client }: { handlerSubmit: (client
                             id='address'
                             {...register('address', {
                                 required: requiredValidator,
-                                pattern: patternAddressValidator
+                                pattern: addressPatternValidator
                             })}
                             error={errors.address} />
                         <CustomFormField.Input
@@ -60,7 +60,7 @@ export default function Form({ handlerSubmit, client }: { handlerSubmit: (client
                             id='number-phone'
                             {...register('numberPhone', {
                                 required: requiredValidator,
-                                pattern: patternNumberValidator
+                                pattern: numberPatternValidator
                             })}
                             error={errors.numberPhone} />
                         <CustomButton type='submit' classAdd='bg-green-500 text-white hover:bg-green-600 w-6/12 mx-auto'>Guardar</CustomButton>

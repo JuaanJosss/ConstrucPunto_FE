@@ -7,6 +7,7 @@ import Paragraph from "../Shared/Paragraph";
 import { Modal } from "../Shared/Modal";
 import { useNavigate } from "react-router";
 import { routes } from "@/Router/routes";
+import { includes } from "zod";
 
 
 export default function ModalContentDetailLoan({ promissoryId, onCloser }: { promissoryId: number, onCloser?: () => Promise<void> }) {
@@ -37,14 +38,12 @@ export default function ModalContentDetailLoan({ promissoryId, onCloser }: { pro
         return (
             <div className="flex flex-col gap-4">
                 <Paragraph section="Fecha" text={invoice.deliveryDate.toString()} />
-                <div id="client">
-                    <h4 className="text-xl font-semibold">Datos del Cliente</h4>
-                    <ul className="mx-4">
-                        <li><Paragraph section="Documento" text={invoice.clientCedula} /> </li>
-                        <li><Paragraph section="Nombre" text={invoice.clientName} /> </li>
-                        <li><Paragraph section="Teléfono" text={invoice.numberPhone} /> </li>
-                        <li><Paragraph section="Dirección" text={invoice.addressClient} /> </li>
-                    </ul>
+                <div className="grid grid-cols-2 grid-rows-3">
+                    <h4 className="font-semibold text-xl">Datos del cliente</h4>
+                    <Paragraph classes="row-start-2" section="Nombre" text={invoice.clientName} />
+                    <Paragraph classes="row-start-2" section="Documento" text={invoice.clientCedula} />
+                    <Paragraph classes="row-start-3" section="Teléfono" text={invoice.numberPhone} />
+                    <Paragraph classes="row-start-3" section="Dirección" text={invoice.addressClient} />
                 </div>
                 <div className="space-y-2">
                     <h4 className="text-xl font-semibold">Información de préstamo</h4>
@@ -56,7 +55,7 @@ export default function ModalContentDetailLoan({ promissoryId, onCloser }: { pro
                             <li>Valor Día</li>
                             <li>Total por día</li>
                         </ul>
-                        <div className="w-full max-h-72 overflow-y-auto">
+                        <div className="w-full max-h-24 overflow-y-auto">
                             {invoice.loanEquipments.map((tool, i) => (
                                 <ul
                                     key={i}

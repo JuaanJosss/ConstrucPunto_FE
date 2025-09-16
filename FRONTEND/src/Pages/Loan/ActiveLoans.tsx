@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 import type { ILoanSearchType } from "@/Types/FormType";
 import type { LoanType } from "@/Types/LoanTypes";
 import useClearSearchbarHook from "@/hooks/ClearSearchbarHook";
+import { numberPatternValidator, requiredValidator } from "@/validations/validation";
 
 export default function ViewActivedLoans() {
     const [data, setData] = useState<LoanType[]>([]);
@@ -45,10 +46,6 @@ export default function ViewActivedLoans() {
     }
 
     const handlerFilter = async (data: ILoanSearchType) => {
-        if (!data.date && !data.document) {
-            return;
-        }
-
         const record: Record<number, string> = { 0: data.date, 1: data.document };
         setFilter(record);
 
@@ -64,7 +61,7 @@ export default function ViewActivedLoans() {
                     handleSubmit={handleSubmit}
                     handlerSubmit={handlerFilter}
                     error={errors.document}
-                    {...register('document', { pattern: { value: numberPattern.reGex, message: numberPattern.message } })}
+                    {...register('document', { pattern: numberPatternValidator, required: requiredValidator })}
                     label="Busca por cédula" >
                     <CustomFormField.Input id="date" label="Fecha" type="date" {...register('date')} />
                 </SearcBar>

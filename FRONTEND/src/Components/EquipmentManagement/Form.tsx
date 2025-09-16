@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 import { CustomFormField } from '../Shared/CustomInputs';
 import CustomButton from '../Shared/CustomButton';
 import { ArrowLeft } from 'lucide-react';
-import { minValidator, patternNumberValidator, requiredValidator } from '@/validations/validation';
+import { minValidator, numberPatternValidator, requiredValidator } from '@/validations/validation';
 
 export default function Form({ handlerSubmit, e }: { handlerSubmit: (equipment: EquipmentType) => Promise<void>, e?: EquipmentType }) {
     const navigate = useNavigate()
@@ -41,7 +41,7 @@ export default function Form({ handlerSubmit, e }: { handlerSubmit: (equipment: 
                             id='address'
                             {...register('unitPrice', {
                                 required: requiredValidator,
-                                pattern: patternNumberValidator,
+                                pattern: numberPatternValidator,
                                 min: minValidator
                             })}
                             error={errors.unitPrice} />
@@ -50,7 +50,7 @@ export default function Form({ handlerSubmit, e }: { handlerSubmit: (equipment: 
                             id='number-phone'
                             {...register('total', {
                                 required: requiredValidator,
-                                pattern: patternNumberValidator,
+                                pattern: numberPatternValidator,
                                 min: minValidator
                             })}
                             error={errors.total} />
@@ -59,7 +59,7 @@ export default function Form({ handlerSubmit, e }: { handlerSubmit: (equipment: 
                             id='quantity'
                             {...register('quantity', {
                                 required: requiredValidator,
-                                pattern: patternNumberValidator,
+                                pattern: numberPatternValidator,
                                 min: minValidator,
                                 max: { value: totalStock, message: 'Debe de ser menor o igual a total en inventario' }
                             })}

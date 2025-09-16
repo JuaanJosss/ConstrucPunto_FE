@@ -5,7 +5,7 @@ import { routes } from "@/Router/routes";
 import CustomButton from "../Shared/CustomButton";
 import { Pencil, Trash } from "lucide-react";
 
-export default function ListEquipment({ e, OnDelete }: { e: EquipmentType, OnDelete: (id: number) => void }) {
+export default function ListEquipment({ e, OnDelete, idx }: { e: EquipmentType, OnDelete: (id: number) => void, idx: number }) {
   const navigate = useNavigate()
 
   const onEdit = (id: number) => {
@@ -13,7 +13,7 @@ export default function ListEquipment({ e, OnDelete }: { e: EquipmentType, OnDel
   };
 
   return (
-    <ToolsColumn.Column color="bg-gray-100">
+    <ToolsColumn.Column color={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}>
       <ToolsColumn.Container>
         <ToolsColumn.Name name={e.name} />
         <ToolsColumn.Code code={e.id!} />

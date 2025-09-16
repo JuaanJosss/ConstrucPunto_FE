@@ -8,10 +8,9 @@ import type { EquipmentTypeToListType } from "@/Types/EquipmentTypes";
 import { useEffect, useState } from "react";
 import type { LoanFormType } from "@/Types/LoanTypes";
 import Paragraph from "@/Components/Shared/Paragraph";
-import { numberPattern } from "@/Patterns/formsPatterns";
 import { AnimatePresence } from "motion/react";
 import AnimationContainer from "@/Components/Shared/AnimationContainer";
-import { patternNumberValidator } from "@/validations/validation";
+import { numberPatternValidator, onlyLettersPatternValidator } from "@/validations/validation";
 
 interface IModalContentProps {
     client: ClientType;
@@ -44,12 +43,12 @@ export function ModalContent({ client, toolsList, handlerSubmit }: IModalContent
     return (
         <>
             <div className="flex flex-col p-2 gap-5">
-                <div>
+                <div className="grid grid-cols-2 grid-rows-3">
                     <h4 className="font-semibold text-xl">Datos del cliente</h4>
-                    <Paragraph section="Nombre" text={client.name} />
-                    <Paragraph section="Documento" text={client.cedula} />
-                    <Paragraph section="Teléfono" text={client.numberPhone} />
-                    <Paragraph section="Dirección" text={client.address} />
+                    <Paragraph classes="row-start-2" section="Nombre" text={client.name} />
+                    <Paragraph classes="row-start-2" section="Documento" text={client.cedula} />
+                    <Paragraph classes="row-start-3" section="Teléfono" text={client.numberPhone} />
+                    <Paragraph classes="row-start-3" section="Dirección" text={client.address} />
                 </div>
 
                 <TableOfToolsModal toolsList={toolsList} />
@@ -70,27 +69,35 @@ export function ModalContent({ client, toolsList, handlerSubmit }: IModalContent
                                     type="number"
                                     id="DeliveryCedeula"
                                     classAdd="w-6/12"
-                                    {...register('deliveryCedula', { pattern: patternNumberValidator })}
+                                    {...register('deliveryCedula', { pattern: numberPatternValidator })}
                                     error={errors.deliveryCedula} />
                                 <CustomFormField.Input
                                     label="Flete"
                                     type="number"
                                     id="deliveryPrice"
                                     classAdd="w-6/12"
-                                    {...register('deliveryPrice', { pattern: patternNumberValidator })}
+                                    {...register('deliveryPrice', { pattern: numberPatternValidator })}
                                     error={errors.deliveryPrice} />
                             </AnimationContainer>
                         }
                     </AnimatePresence>
-                    <CustomFormField.Input
-                        label="Deposito"
-                        type="number"
-                        id="deposit"
-                        classAdd="w-full"
-                        {...register('deposit',
-                            { pattern: patternNumberValidator })}
-                        error={errors.deposit} />
-                    <CustomFormField.Input label="Comentarios" type="text" id="comments" classAdd="w-full" {...register('comments')} error={errors.deposit} />
+                    <div className="flex gap-4">
+                        <CustomFormField.Input
+                            label="Deposito"
+                            type="number"
+                            id="deposit"
+                            classAdd="w-full"
+                            {...register('deposit',
+                                { pattern: numberPatternValidator })}
+                            error={errors.deposit} />
+                        <CustomFormField.Input label="Comentarios"
+                            type="text"
+                            id="comments"
+                            classAdd="w-full"
+                            {...register('comments',
+                                { pattern: onlyLettersPatternValidator })}
+                            error={errors.deposit} />
+                    </div>
                     <CustomButton type="submit" classAdd="bg-green-500 hover:bg-green-600 text-white font-semibold w-full">Terminar Proceso </CustomButton>
                 </form>
             </div>

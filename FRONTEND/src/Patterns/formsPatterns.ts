@@ -8,6 +8,11 @@ export const addressPattern = {
     message: 'No se permite otros carácteres'
 }
 
+export const justLettersPattern = {
+    reGex: /^[A-Za-z ]+$/,
+    message: 'No se permite otros carácteres'
+}
+
 export const DocumentOrNamePattern = {
     reGex: /^[A-Za-z0-9]+$/,
     message: 'No se permite otros carácteres'

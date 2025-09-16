@@ -1,4 +1,4 @@
-import { addressPattern, numberPattern } from "@/Patterns/formsPatterns"
+import { addressPattern, justLettersPattern, numberPattern } from "@/Patterns/formsPatterns"
 
 export const requiredValidator = {
     value: true,
@@ -10,12 +10,18 @@ export const minValidator = {
     message: 'El valor no debe ser menor a 1'
 }
 
-export const patternNumberValidator = {
+export const numberPatternValidator = {
     value: numberPattern.reGex,
     message: numberPattern.message
 }
 
-export const patternAddressValidator = {
+export const addressPatternValidator = {
     value: addressPattern.reGex,
     message: addressPattern.message
+}
+
+
+export const onlyLettersPatternValidator = {
+    value: justLettersPattern.reGex,
+    message: justLettersPattern.message
 }

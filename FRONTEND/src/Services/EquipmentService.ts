@@ -1,9 +1,13 @@
 import { API } from "@/lib/API";
-import type { EquipmentType } from "@/Types/EquipmentTypes";
+import { EquipmentSchema, type EquipmentType } from "@/Types/EquipmentTypes";
+import toast from "react-hot-toast";
+import z from "zod";
 
 const CONTROLLER_URL = '/equipment'
 const URLS = {
     FIND_ALL: `find-all`,
+    FIND_BY_ID: 'find-by-',
+    FILTER: 'filter',
     SAVE: 'save'
 }
 
@@ -13,17 +17,41 @@ export async function getEquipment() {
 
 
         return response.data
+
     } catch (error) {
         throw error;
     }
 }
 
-export async function getEquipmentById() {
+export async function getEquipmentById(id: string) {
     try {
-        const response = await API.get<EquipmentType>(`${CONTROLLER_URL}/${URLS.FIND_ALL}`);
+        const response = await API.get<EquipmentType>(`${CONTROLLER_URL}/${URLS.FIND_BY_ID}/${id}`);
 
+        const parsed = EquipmentSchema.safeParse(response.data);
 
-        return response.data
+        if (!parsed.success) {
+            toast.error('No se puede hacer la acción intentelo más tarde')
+        }
+
+        return parsed.data
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function getEquipmentByName(name: string) {
+    try {
+        const response = await API.get<EquipmentType[]>(`${CONTROLLER_URL}/${URLS.FILTER}`, {
+            params: { "name": name }
+        });
+        const parsed = z.array(EquipmentSchema).safeParse(response.data);
+
+        if (!parsed.success) {
+            toast.error('No se puede hacer la acción intentelo más tarde');
+            return [];
+        }
+
+        return parsed.data
     } catch (error) {
         throw error;
     }
@@ -31,15 +59,8 @@ export async function getEquipmentById() {
 
 
 export async function createEquipment(body: EquipmentType) {
-    console.log(`${CONTROLLER_URL}/${URLS.SAVE}`);
-
-
     try {
         const response = await API.post<EquipmentType>(`${CONTROLLER_URL}/${URLS.SAVE}`, body);
-
-        console.log(response.status);
-
-
         return response.data
     } catch (error: any) {
 

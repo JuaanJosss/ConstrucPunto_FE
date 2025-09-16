@@ -3,12 +3,16 @@ import type { EquipmentType } from "@/Types/EquipmentTypes";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useClearSearchbarHook from "./ClearSearchbarHook";
+import type { IFindEquipmentByName } from "@/Types/FormType";
+import { useForm } from "react-hook-form";
 
 export default function useEquipmentManagementHook() {
     const [equipments, setEquipments] = useState<EquipmentType[]>([]);
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [toolId, setToolId] = useState<number | null>(null);
-    const { toggleButton, isFilteredActive, setIsFilteredActive, errors, handleSubmit, register } = useClearSearchbarHook({ setArrayValue: setEquipments, func: getEquipment })
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<IFindEquipmentByName>({ defaultValues: { equipment: '' } })
+
+    const { toggleButton, isFilteredActive, setIsFilteredActive } = useClearSearchbarHook({ setArrayValue: setEquipments, func: getEquipment, reset })
 
     useEffect(() => {
         getEquipment().then(setEquipments);
@@ -37,10 +41,16 @@ export default function useEquipmentManagementHook() {
         openModal,
         removeTool,
 
+        toggleButton,
+        isFilteredActive,
+        setIsFilteredActive,
+
 
         onConfirm,
         onCancel,
         handleSubmit,
-        register
+        register,
+        errors,
+        reset
     }
 }
