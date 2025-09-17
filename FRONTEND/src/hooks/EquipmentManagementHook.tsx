@@ -11,7 +11,6 @@ export default function useEquipmentManagementHook() {
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [toolId, setToolId] = useState<number | null>(null);
     const { register, handleSubmit, formState: { errors }, reset } = useForm<IFindEquipmentByName>({ defaultValues: { equipment: '' } })
-
     const { toggleButton, isFilteredActive, setIsFilteredActive } = useClearSearchbarHook({ setArrayValue: setEquipments, func: getEquipment, reset })
 
     useEffect(() => {

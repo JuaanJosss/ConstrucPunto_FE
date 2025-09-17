@@ -7,8 +7,6 @@ import Paragraph from "../Shared/Paragraph";
 import { Modal } from "../Shared/Modal";
 import { useNavigate } from "react-router";
 import { routes } from "@/Router/routes";
-import { includes } from "zod";
-
 
 export default function ModalContentDetailLoan({ promissoryId, onCloser }: { promissoryId: number, onCloser?: () => Promise<void> }) {
     const navigator = useNavigate();
@@ -30,10 +28,9 @@ export default function ModalContentDetailLoan({ promissoryId, onCloser }: { pro
         navigator(`/${routes.FORMS}/${routes.LEND.EDIT_RETURN}/${promissoryId}`)
     }
 
-
-
     if (invoice) {
         const totalgave = invoice.deposit === 0 ? 0 : invoice.deposit - invoice.total!
+
 
         return (
             <div className="flex flex-col gap-4">

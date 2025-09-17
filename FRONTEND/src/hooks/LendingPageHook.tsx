@@ -5,17 +5,14 @@ import { createLoan } from "@/Services/LoanService";
 import { useClientStore } from "@/Store/Client/ClientStore";
 import { useEquipmentsStore } from "@/Store/Equipment/EquipmentStore";
 import type { EquipmentType } from "@/Types/EquipmentTypes";
+import type { IFindEquipmentByName } from "@/Types/FormType";
 import type { LoanFormType } from "@/Types/LoanTypes";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { useShallow } from "zustand/shallow";
-
-interface FormValue {
-    name: string;
-}
-
+import useClearSearchbarHook from "./ClearSearchbarHook";
 
 export default function useLendingPageHook() {
     const navigate = useNavigate()
@@ -26,7 +23,8 @@ export default function useLendingPageHook() {
     const toolsList = useEquipmentsStore(useShallow(state => state.ToolsToList));
     const client = useClientStore(useShallow((state => state.client)))
 
-    const { register, handleSubmit, formState: { errors } } = useForm<FormValue>({ defaultValues: { name: '' } })
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<IFindEquipmentByName>({ defaultValues: { equipment: '' } })
+    const { toggleButton, isFilteredActive, setIsFilteredActive } = useClearSearchbarHook({ setArrayValue: setEquipment, func: getEquipment, reset })
 
     const switchOpen = (): void => {
         setIsOpen(!isOpen);
@@ -56,18 +54,13 @@ export default function useLendingPageHook() {
         toast.success(`¡El pagaré ${toastMessages.createdSuccess}`);
     }
 
-    const handlerSearchbar = async (data: FormValue) => {
-
-
-    }
-
-
 
     return {
         toolsList,
         client,
         isOpen,
         equipments,
+        setEquipment,
 
         //? modal
         switchOpen,
@@ -77,7 +70,10 @@ export default function useLendingPageHook() {
         register,
         handleSubmit,
         errors,
-        handlerSearchbar
+
+        isFilteredActive,
+        setIsFilteredActive,
+        toggleButton
 
     }
 }

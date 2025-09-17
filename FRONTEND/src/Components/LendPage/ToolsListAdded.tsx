@@ -7,7 +7,7 @@ import BoxContainer from "../Shared/BoxContainer";
 export default function ToolsListAdded({ toolsList, switchOpen, name }: { toolsList: EquipmentTypeToListType[], switchOpen: () => void, name: string }) {
 
     return (
-        <div className="p-4 rounded-lg [height:98vh] flex flex-col justify-between gap-2">
+        <div className="p-4 rounded-lg h-[98vh] flex flex-col justify-between gap-2 md:w-4/12 @3xl:w-3/12">
             <BoxContainer>
                 <p className="text-gray-500">Prestamo para: <span className="text-black font-semibold"> {name}</span></p>
             </BoxContainer>

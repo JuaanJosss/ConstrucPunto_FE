@@ -1,7 +1,7 @@
 import { createInvoice, getLoanPerDocumentOrDate, getLoans } from "@/Services/LoanService";
 import { CustomFormField } from "@/Components/Shared/CustomInputs";
 import { Modal } from "@/Components/Shared/Modal";
-import { numberPattern } from "@/Patterns/formsPatterns";
+import { numberPatternValidator, requiredValidator } from "@/validations/validation";
 import { toastMessages } from "@/helpers/toastMessages";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -15,7 +15,6 @@ import toast from "react-hot-toast";
 import type { ILoanSearchType } from "@/Types/FormType";
 import type { LoanType } from "@/Types/LoanTypes";
 import useClearSearchbarHook from "@/hooks/ClearSearchbarHook";
-import { numberPatternValidator, requiredValidator } from "@/validations/validation";
 
 export default function ViewActivedLoans() {
     const [data, setData] = useState<LoanType[]>([]);
