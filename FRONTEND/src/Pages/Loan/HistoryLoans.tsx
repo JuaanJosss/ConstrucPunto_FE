@@ -71,7 +71,7 @@ export default function HistoryLoans() {
                     {data?.map((pre, i) => (
                         <div key={i} className={`flex justify-between items-center py-2 px-4 ${i % 2 === 0 ? 'bg-gray-100' : ''}`}>
                             <div>
-                                <div className="space-x-6 border-gray-400 flex flex-col">
+                                <div className="space-x-6 border-gray-400 flex flex-col capitalize">
                                     <span className="text-2xl">{pre.clientName}</span>
                                     <Paragraph section="Documento" text={pre.cedula} />
                                     <Paragraph section="Fecha" text={pre.date} />
