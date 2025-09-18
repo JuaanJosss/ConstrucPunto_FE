@@ -1,10 +1,11 @@
 import { z } from 'zod'
 
-const ClientSchema = z.object({
+export const ClientSchema = z.object({
     id: z.number().or(z.string()),
     name: z.string(),
     address: z.string(),
-    phone: z.number().or(z.string()),
+    numberPhone: z.number().or(z.string()),
+    cedula: z.number()
 });
 
 

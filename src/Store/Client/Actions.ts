@@ -1,7 +1,12 @@
 import type { ClientType } from "@/Types/ClientTypes";
 
 
-export function SetClient(value: ClientType, state: ClientType) {
+export function SetClient(value: ClientType | null, state: ClientType) {
 
-    return { ...value, state }
+    if (value) {
+        return { ...value, state }
+    }
+
+
+    return null
 } 

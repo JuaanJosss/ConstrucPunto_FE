@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { ClientSlice } from "./ClientSlice";
-import type { ClientState } from "@/Types/StoreTypes";
+import type { IClient, IClientActions } from "@/Types/StoreTypes";
 
-export const ClientStore = create<ClientState>((...a) => ({
+export const useClientStore = create<IClient & IClientActions>((...a) => ({
     ...ClientSlice(...a)
 }))

@@ -1,16 +1,17 @@
 import { useMemo } from "react";
 import { useShallow } from "zustand/shallow";
-import { useToolsStore } from "@/Store/Tools/ToolsStore";
-import type { ToolsType } from "@/Types/ToolsTypes";
-import { ToolsColumn } from "./ToolList";
+import { useEquipmentsStore } from "@/Store/Equipment/EquipmentStore";
+import type { EquipmentType } from "@/Types/EquipmentTypes";
+import { ToolsColumn } from "../Shared/ToolColumn";
 import CustomButton from "@/Components/Shared/CustomButton";
+import { formatCurrency } from "@/helpers/formatters";
 
-export default function ToolsSearched({ tool, idx }: { tool: ToolsType, idx: number }) {
-    const addTools = useToolsStore(useShallow(state => state.addTools));
-    const toolsOnList = useToolsStore(state => state.ToolsToList)
+export default function ToolsSearched({ tool, idx }: { tool: EquipmentType, idx: number }) {
+    const addTools = useEquipmentsStore(useShallow(state => state.addTools));
+    const toolsOnList = useEquipmentsStore(state => state.ToolsToList)
 
-    function addTolist(id: string, name: string) {
-        addTools({ id, name, quantity: 1 });
+    function addTolist(tool: EquipmentType) {
+        addTools({ ...tool, quantity: 1 });
     }
 
     const toolsMap = useMemo(() => {
@@ -18,19 +19,20 @@ export default function ToolsSearched({ tool, idx }: { tool: ToolsType, idx: num
     }, [toolsOnList]);
 
     const tValidate = toolsMap.get(tool.id);
-    const isDisabled = tValidate ? tValidate.quantity >= tool.disponibility : false
+    const isDisabled = tValidate ? tValidate.quantity >= tool.quantity : false
 
     return (
         <ToolsColumn.Column color={`${idx % 2 !== 0 ? 'bg-gray-100' : 'bg-white'}`}>
             <ToolsColumn.Container>
                 <ToolsColumn.Name name={tool.name} />
-                <ToolsColumn.Information dispo={tool.disponibility} code={tool.id} />
+                <ToolsColumn.Code code={tool.id!} />
+                <ToolsColumn.Disponibility dispo={tool.quantity} />
+                <ToolsColumn.UnitPrice price={formatCurrency(tool.unitPrice)} />
             </ToolsColumn.Container>
-            <CustomButton onClick={() => addTolist(tool.id, tool.name)}
-                id={tool.id}
+            <CustomButton onClick={() => addTolist(tool)}
                 type="button"
                 classAdd="bg-green-700 hover:bg-green-800 text-white"
-                disabled={isDisabled}
+                disabled={isDisabled || tool.quantity === 0}
             >Agregar
             </CustomButton>
         </ToolsColumn.Column>

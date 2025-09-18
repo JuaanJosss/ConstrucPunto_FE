@@ -1,30 +1,34 @@
 import type { ClientType } from "./ClientTypes";
-import type { ToolsToListType, ToolsType, } from "./ToolsTypes";
+import type { EquipmentTypeToListType, EquipmentType, } from "./EquipmentTypes"
 
 export interface ITools {
-    Tools: ToolsType[];
-    ToolsToList: ToolsToListType[];
+    Tools: EquipmentType[];
+    ToolsToList: EquipmentTypeToListType[];
 };
 
-export interface ToolsActions {
-    setTools?: () => void;
-    addTools: (tool: ToolsToListType) => void;
-    increaseQuantity: (toolId: ToolsToListType) => void;
-    decreaseQuantity: (toolId: ToolsToListType) => void;
-    removeTool: (id: string) => void;
+export interface EquipmentActions {
+    fecthData: () => Promise<void>;
+    setTools: (equipments: EquipmentType[]) => void;
+    addTools: (tool: EquipmentTypeToListType) => void;
+    increaseQuantity: (toolId: EquipmentTypeToListType, quantity: number) => void;
+    decreaseQuantity: (toolId: EquipmentTypeToListType, quantity: number) => void;
+    removeTool: (id: number) => void;
+    clearList: () => void;
 };
 
-export interface ToolState {
-    tools: ITools;
-    toolActions: ToolsActions;
+export interface EquipmentState {
+    Equipment: ITools;
+    EquipmentActions: EquipmentActions;
 }
 
 export interface IClient {
-    client: ClientType;
+    client: ClientType | null;
+    documentoToRegister: number | null;
 }
 
 export interface IClientActions {
-    setCLient: (client: ClientType) => void;
+    setCLient: (client: ClientType | null) => void;
+    setDocument: (document: number) => void;
 }
 
 

@@ -9,7 +9,7 @@ type ButtonProps = {
 }
 
 export default function CustomButton({ children, type, onClick, classAdd, paddingClass = "px-4 py-2", disabled, id }: ButtonProps) {
-    const communClass = `flex gap-2 ${paddingClass} rounded-lg justify-center items-center transition-colors duration-300 hover:cursor-pointer disabled:bg-gray-300 disabled:cursor-not-allowed ${classAdd}`;
+    const communClass = `flex gap-2 ${paddingClass} rounded-lg justify-center items-center transition-colors duration-300 hover:cursor-pointer disabled:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed ${classAdd}`;
 
     return (
         <button
