@@ -23,7 +23,7 @@ export function DeliveryInformation({ name, phone }: { name: string, phone: stri
                 <div className="grid grid-cols-2 grid-rows-3">
                     <h4 className="font-semibold text-xl">Datos del domiciliario</h4>
                     <Paragraph classes="row-start-2" section="Nombre" text={name} />
-                    <Paragraph classes="row-start-2" section="Nombre" text={phone} />
+                    <Paragraph classes="row-start-2" section="Teléfono" text={phone} />
                 </div>)
             }
         </>
