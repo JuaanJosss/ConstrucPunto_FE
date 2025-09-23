@@ -3,12 +3,15 @@ import type { ClientType } from '@/Types/ClientTypes';
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import useClearSearchbarHook from './ClearSearchbarHook';
+import { useForm } from 'react-hook-form';
+import type { ISearchByNameOrDocument } from '@/Types/FormType';
 
 export default function useClientManagementHook() {
     const [clients, setClient] = useState<ClientType[]>([]);
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [clientId, setClientId] = useState<number | null>(null);
-    const { toggleButton, isFilteredActive, setIsFilteredActive, errors, handleSubmit, register } = useClearSearchbarHook({ setArrayValue: setClient, func: getClients })
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<ISearchByNameOrDocument>({ defaultValues: { value: '' } })
+    const { toggleButton, isFilteredActive, setIsFilteredActive } = useClearSearchbarHook({ setArrayValue: setClient, func: getClients, reset })
 
 
     useEffect(() => {
@@ -36,15 +39,15 @@ export default function useClientManagementHook() {
 
     return {
         clients,
-        setClient,
-        openModal,
-        removeClient,
-        onConfirm,
-        onCancel,
-        handleSubmit,
-        register,
         errors,
+        handleSubmit,
         isFilteredActive,
+        onCancel,
+        onConfirm,
+        openModal,
+        register,
+        removeClient,
+        setClient,
         setIsFilteredActive,
         toggleButton
     }

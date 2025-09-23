@@ -5,19 +5,20 @@ import CustomButton from "@/Components/Shared/CustomButton"
 import { Modal } from "@/Components/Shared/Modal"
 import useEquipmentManagementHook from "@/hooks/EquipmentManagementHook"
 import { routes } from "@/Router/routes"
-import { getEquipmentByName } from "@/Services/EquipmentService"
-import type { IFindEquipmentByName } from "@/Types/FormType"
-import { onlyLettersPatternValidator } from "@/validations/validation"
-import { Plus } from "lucide-react"
-import { NavLink } from "react-router"
+import { getEquipmentByName } from "@/Services/EquipmentService";
+import type { IFindEquipmentByName } from "@/Types/FormType";
+import { onlyLettersPatternValidator } from "@/validations/validation";
+import { Plus } from "lucide-react";
+import { NavLink } from "react-router";
 
 export default function EquipmentManagement() {
     const { equipments, setEquipments, openModal, register, handleSubmit,
         onCancel, onConfirm, removeTool, toggleButton, isFilteredActive, setIsFilteredActive, errors } = useEquipmentManagementHook()
 
-
     const handlerSubmit = async (data: IFindEquipmentByName) => {
-        setIsFilteredActive(true)
+        if (!data.equipment) return;
+
+        setIsFilteredActive(true);
         await getEquipmentByName(data.equipment).then(setEquipments);
     }
 

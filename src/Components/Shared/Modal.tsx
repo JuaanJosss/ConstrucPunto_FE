@@ -15,10 +15,11 @@ interface modalProps {
     degress?: string;
     confirm?: string;
     height?: string;
+    width?: string;
 }
 
 
-const ModalContainer = ({ isOpen, isQuestion, title, children, onClose, onConfirm, onCancel, confirm, degress, height = 'h-max' }: modalProps) => {
+const ModalContainer = ({ isOpen, isQuestion, title, children, onClose, onConfirm, onCancel, confirm, degress, height = 'h-max', width = 'w-[40%]' }: modalProps) => {
     return (
         <AnimatePresence>
             {isOpen && (
@@ -30,7 +31,7 @@ const ModalContainer = ({ isOpen, isQuestion, title, children, onClose, onConfir
                     className="absolute w-screen h-screen bg-black/80 left-0 top-0 flex items-center justify-center overflow-hidden">
                     <div
                         onClick={(e) => e.stopPropagation()}
-                        className={`${height} bg-white p-4 rounded-md shadow-md w-[40%] flex justify-between flex-col`}>
+                        className={`${height} bg-white p-4 rounded-md shadow-md ${width} flex justify-between flex-col`}>
                         <div className="flex justify-end">
                             <CustomButton
                                 type="button"

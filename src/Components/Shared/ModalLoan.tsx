@@ -19,10 +19,11 @@ export function ClientInformation({ name, document, numberPhone, address }: { na
 export function DeliveryInformation({ name, phone }: { name: string, phone: string | null }) {
     return (
         <>
-            {name && (
+            {name && phone && (
                 <div className="grid grid-cols-2 grid-rows-3">
                     <h4 className="font-semibold text-xl">Datos del domiciliario</h4>
                     <Paragraph classes="row-start-2" section="Nombre" text={name} />
+                    <Paragraph classes="row-start-2" section="Nombre" text={phone} />
                 </div>)
             }
         </>
@@ -92,6 +93,7 @@ export function loanInformation({ deposit, deliveryPrice, totalDays, total }: { 
 
 export const LoanModalContent = {
     ClientInformation,
+    DeliveryInformation,
     LoanEquipmentsInformation,
     loanInformation,
     LoanDates

@@ -61,7 +61,6 @@ export function ModalContent({ client, toolsList, handlerSubmit }: IModalContent
         setExistsDelivery(status);
     }
 
-
     return (
 
         <div className="flex flex-col p-2 gap-5">
@@ -140,7 +139,7 @@ export function ModalContent({ client, toolsList, handlerSubmit }: IModalContent
                             { pattern: onlyLettersPatternValidator })}
                         error={errors.comments} />
                 </div>
-                <CustomButton type="submit" classAdd="bg-green-500 hover:bg-green-600 text-white font-semibold w-full">Terminar Proceso </CustomButton>
+                <CustomButton type="submit" classAdd="bg-green-500 hover:bg-green-600 text-white font-semibold w-full">Terminar Proceso e imprimir</CustomButton>
             </form>
         </div>
     )
