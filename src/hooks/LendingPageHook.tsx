@@ -21,7 +21,9 @@ export default function useLendingPageHook() {
 
     const setTools = useEquipmentsStore(useShallow(state => state.setTools));
     const toolsList = useEquipmentsStore(useShallow(state => state.ToolsToList));
+    const clearList = useEquipmentsStore(useShallow(state => state.clearList));
     const client = useClientStore(useShallow((state => state.client)))
+    const setClient = useClientStore(useShallow((state => state.setCLient)))
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<IFindEquipmentByName>({ defaultValues: { equipment: '' } })
     const { toggleButton, isFilteredActive, setIsFilteredActive } = useClearSearchbarHook({ setArrayValue: setEquipment, func: getEquipment, reset })
@@ -58,6 +60,11 @@ export default function useLendingPageHook() {
         }
     }
 
+    const handlerCancelLoan = () => {
+        setClient(null)
+        clearList();
+    }
+
 
     return {
         toolsList,
@@ -77,7 +84,7 @@ export default function useLendingPageHook() {
 
         isFilteredActive,
         setIsFilteredActive,
-        toggleButton
-
+        toggleButton,
+        handlerCancelLoan
     }
 }

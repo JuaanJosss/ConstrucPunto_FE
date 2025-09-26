@@ -8,6 +8,7 @@ const URLS = {
     FIND_ALL: `find-all`,
     FIND_BY_ID: 'find-by-',
     FILTER: 'filter',
+    DELETE: 'delete',
     SAVE: 'save'
 }
 
@@ -80,7 +81,7 @@ export async function createEquipment(body: EquipmentType) {
 
 export async function deleteEquipment(id: number) {
     try {
-        const response = await API.delete(`${CONTROLLER_URL}/${id}`);
+        const response = await API.delete(`${CONTROLLER_URL}/${URLS.DELETE}/${id}`);
 
         return response.data
     } catch (error: any) {

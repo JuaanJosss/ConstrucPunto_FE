@@ -14,9 +14,9 @@ const ToolListRight = ({ toolsList }: { toolsList: EquipmentTypeToListType[] }) 
     }
 
     return (
-        <BoxContainer height="h-[88%] overflow-y-scroll overflow-x-hidden">
+        <BoxContainer classes="overflow-hidden h-12/12">
             <h1 className="text-center font-semibold text-xl">{`${toolsList.length > 0 ? "Equipos agregados" : "Agrega Equipo"}`}</h1>
-            <div className="">
+            <div className="overflow-y-scroll h-11/12">
                 {toolsList.map((item, i) => (
                     <div key={i} >
                         <div className={`flex justify-between items-center ${i % 2 !== 0 ? 'bg-gray-100' : 'bg-white'}`}>

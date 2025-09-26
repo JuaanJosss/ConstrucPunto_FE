@@ -18,6 +18,10 @@ export default function ClientManagement() {
         isFilteredActive, setIsFilteredActive } = useClientManagementHook()
 
     const handlerSubmit = async (form: ISearchByNameOrDocument) => {
+        if (!form.value) {
+            return;
+        }
+
         setIsFilteredActive(true);
         if (isNumber(form.value)) {
             await getCLientByIdArray(Number(form.value)).then(setClient);
@@ -36,8 +40,7 @@ export default function ClientManagement() {
                     label="Busca por nombre o cédula" />
             </BoxContainer>
 
-
-            <BoxContainer height="h-[calc(100vh-130px)]" >
+            <BoxContainer height="h-[calc(100vh-130px)]">
                 <div className="grid grid-cols-2 gap-4 my-2 items-center">
                     {isFilteredActive && <CustomButton onClick={toggleButton} type="button" classAdd="justify-self-start  bg-gray-200 hover:bg-gray-300"> Borrar búsqueda  </CustomButton>}
                     <NavLink
@@ -47,7 +50,7 @@ export default function ClientManagement() {
                     </NavLink>
                 </div>
 
-                <ul className="grid grid-cols-5 place-items-center bg-green-100 p-2 rounded-t-lg font-semibold">
+                <ul className="grid grid-cols-5 place-items-center bg-gray-800 text-white p-2 rounded-t-lg font-semibold">
                     <li>Documento</li>
                     <li>Nombre</li>
                     <li>Teléfono</li>

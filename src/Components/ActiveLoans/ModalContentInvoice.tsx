@@ -2,7 +2,6 @@ import { getLoanByPromissoryId } from "@/Services/LoanService";
 import type { LoanByIdType } from "@/Types/LoanTypes";
 import { useEffect, useState } from "react";
 import CustomButton from "../Shared/CustomButton";
-import Paragraph from "../Shared/Paragraph";
 import { Modal } from "../Shared/Modal";
 import { useNavigate } from "react-router";
 import { routes } from "@/Router/routes";
@@ -34,10 +33,7 @@ export default function ModalContentDetailLoan({ promissoryId, onCloser }: { pro
                 <LoanModalContent.LoanDates deliveryDate={invoice.deliveryDate.toString()} deliveryReturned={invoice.deliveryReturn} />
                 <LoanModalContent.ClientInformation name={invoice.clientName} document={invoice.clientCedula} address={invoice.addressClient} numberPhone={invoice.numberPhone} />
 
-                {invoice.deliveryName && <div className="grid grid-cols-2 grid-rows-3">
-                    <h4 className="font-semibold text-xl">Datos del domiciliario</h4>
-                    <Paragraph classes="row-start-2" section="Nombre" text={invoice.deliveryName} />
-                </div>}
+                <LoanModalContent.DeliveryInformation name={invoice.deliveryName} phone={invoice.numberPhone} />
 
                 <LoanModalContent.LoanEquipmentsInformation equipments={invoice.loanEquipments} />
                 <LoanModalContent.loanInformation deposit={invoice.deposit} deliveryPrice={invoice.deliveryPrice} total={invoice.total} totalDays={invoice.totalDays} />

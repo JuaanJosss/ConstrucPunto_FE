@@ -5,7 +5,7 @@ export const ClientSchema = z.object({
     name: z.string(),
     address: z.string(),
     numberPhone: z.number().or(z.string()),
-    cedula: z.number()
+    cedula: z.number().or(z.string())
 });
 
 

@@ -1,7 +1,7 @@
 import { createInvoice, getLoanPerDocumentOrDate, getLoans } from "@/Services/LoanService";
 import { CustomFormField } from "@/Components/Shared/CustomInputs";
 import { Modal } from "@/Components/Shared/Modal";
-import { numberPatternValidator, requiredValidator } from "@/validations/validation";
+import { numberPatternValidator } from "@/validations/validation";
 import { toastMessages } from "@/helpers/toastMessages";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -45,6 +45,10 @@ export default function ViewActivedLoans() {
     }
 
     const handlerFilter = async (data: ILoanSearchType) => {
+        if (!data.date && !data.document) {
+            return;
+        }
+
         const record: Record<number, string> = { 0: data.date, 1: data.document };
         setFilter(record);
 
@@ -60,7 +64,7 @@ export default function ViewActivedLoans() {
                     handleSubmit={handleSubmit}
                     handlerSubmit={handlerFilter}
                     error={errors.document}
-                    {...register('document', { pattern: numberPatternValidator, required: requiredValidator })}
+                    {...register('document', { pattern: numberPatternValidator })}
                     label="Busca por cédula" >
                     <CustomFormField.Input id="date" label="Fecha" type="date" {...register('date')} />
                 </SearcBar>

@@ -16,7 +16,7 @@ export default function Form({ handlerSubmit, client }: { handlerSubmit: (client
     const { register, handleSubmit, formState: { errors } } = useForm<ClientType>({
         defaultValues: {
             id: client && client.id,
-            cedula: client ? client.cedula : document ? document : 0,
+            cedula: client ? client.cedula : document ? document : '',
             name: client ? client.name : '',
             address: client ? client.address : '',
             numberPhone: client ? client.numberPhone : ''

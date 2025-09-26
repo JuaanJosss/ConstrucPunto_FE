@@ -8,7 +8,7 @@ export default function ClientList({ clients, removeClient }: { clients: ClientT
     return (
         <div className="h-10/12 overflow-y-scroll">
             {clients.map((client, i) => (
-                <ul key={i} className="grid grid-cols-5 place-items-center bg-gray-100 p-2">
+                <ul key={i} className={`grid grid-cols-5 place-items-center p-2 ${i % 2 === 0 ? 'bg-gray-100' : ''}`}>
                     <li>{client.cedula}</li>
                     <li>{client.name}</li>
                     <li>{client.numberPhone}</li>
