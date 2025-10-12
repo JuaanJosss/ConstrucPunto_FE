@@ -38,7 +38,7 @@ export async function getClients() {
     }
 }
 
-export async function getCLientById(id: number) {
+export async function getCLientById(id: ClientType['id']) {
     try {
         const response = await API<ClientType>(`${CONTROLLER_URL}/${URLS.FIND_BY_ID}`, {
             params: {
@@ -59,7 +59,7 @@ export async function getCLientById(id: number) {
     }
 }
 
-export async function getCLientByName(name: string) {
+export async function getCLientByName(name: ClientType['name']) {
     try {
         const response = await API<ClientType>(`${CONTROLLER_URL}/${URLS.FIND_BY_ID}`, {
             params: {
@@ -81,7 +81,7 @@ export async function getCLientByName(name: string) {
 
 
 
-export async function getCLientByIdArray(id: number) {
+export async function getCLientByIdArray(id: ClientType['id']) {
     try {
         const response = await API<ClientType[]>(`${CONTROLLER_URL}/${URLS.FIND_BY_ID}`, {
             params: {
@@ -102,7 +102,7 @@ export async function getCLientByIdArray(id: number) {
     }
 }
 
-export async function getCLientByNameArray(name: string) {
+export async function getCLientByNameArray(name: ClientType['name']) {
     try {
         const response = await API<ClientType[]>(`${CONTROLLER_URL}/${URLS.FIND_BY_ID}`, {
             params: {
@@ -143,7 +143,7 @@ export async function saveClient(client: ClientType) {
 }
 
 
-export async function updateClient(client: ClientType, id: number) {
+export async function updateClient(client: ClientType, id: ClientType['id']) {
     try {
         const response = await API.post<ClientType>(`${CONTROLLER_URL}/${URLS.SAVE}`,
             client,
@@ -161,7 +161,7 @@ export async function updateClient(client: ClientType, id: number) {
 }
 
 
-export async function deleteClient(id: number) {
+export async function deleteClient(id: ClientType['id']) {
     try {
         await API.delete<ClientType>(`${CONTROLLER_URL}/${id}`);
     } catch (error) {

@@ -10,7 +10,7 @@ import type { LoanFormType } from "@/Types/LoanTypes";
 import Paragraph from "@/Components/Shared/Paragraph";
 import { AnimatePresence } from "motion/react";
 import AnimationContainer from "@/Components/Shared/AnimationContainer";
-import { numberPatternValidator, onlyLettersPatternValidator } from "@/validations/validation";
+import { numberPatternValidator, onlyLettersPatternValidator, requiredValidator } from "@/validations/validation";
 import { getDeliveryById } from "@/Services/DeliveryService";
 import toast from "react-hot-toast";
 
@@ -31,6 +31,7 @@ export function ModalContent({ client, toolsList, handlerSubmit }: IModalContent
         clientId: client.id,
         deposit: 0,
         comments: "",
+        date: "",
         equipmentIds: {},
         delivery: {
             cedula: 0,
@@ -129,15 +130,21 @@ export function ModalContent({ client, toolsList, handlerSubmit }: IModalContent
                         id="deposit"
                         classAdd="w-full"
                         {...register('deposit',
-                            { pattern: numberPatternValidator })}
+                            { pattern: numberPatternValidator, required: requiredValidator })}
                         error={errors.deposit} />
                     <CustomFormField.Input label="Comentarios"
                         type="text"
                         id="comments"
                         classAdd="w-full"
                         {...register('comments',
-                            { pattern: onlyLettersPatternValidator })}
+                            { pattern: onlyLettersPatternValidator, required: requiredValidator })}
                         error={errors.comments} />
+                    <CustomFormField.Input
+                        label="Fecha"
+                        type="date"
+                        id="date"
+                        {...register('date', { required: requiredValidator })}
+                        error={errors.date} />
                 </div>
                 <CustomButton type="submit" classAdd="bg-green-500 hover:bg-green-600 text-white font-semibold w-full">Terminar Proceso e imprimir</CustomButton>
             </form>

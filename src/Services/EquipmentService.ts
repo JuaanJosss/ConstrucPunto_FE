@@ -24,7 +24,7 @@ export async function getEquipment() {
     }
 }
 
-export async function getEquipmentById(id: string) {
+export async function getEquipmentById(id: EquipmentType['id']) {
     try {
         const response = await API.get<EquipmentType>(`${CONTROLLER_URL}/${URLS.FIND_BY_ID}/${id}`);
 
@@ -40,7 +40,7 @@ export async function getEquipmentById(id: string) {
     }
 }
 
-export async function getEquipmentByName(name: string) {
+export async function getEquipmentByName(name: EquipmentType['name']) {
     try {
         const response = await API.get<EquipmentType[]>(`${CONTROLLER_URL}/${URLS.FILTER}`, {
             params: { "name": name }
@@ -79,7 +79,7 @@ export async function createEquipment(body: EquipmentType) {
     }
 }
 
-export async function deleteEquipment(id: number) {
+export async function deleteEquipment(id: EquipmentType['id']) {
     try {
         const response = await API.delete(`${CONTROLLER_URL}/${URLS.DELETE}/${id}`);
 

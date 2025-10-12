@@ -19,7 +19,8 @@ export const LoanFormSchema = z.object({
     }).optional(),
     deliveryPrice: z.number().or(z.string()),
     comments: z.string(),
-    equipmentIds: z.record(z.string(), z.number())
+    equipmentIds: z.record(z.string(), z.number()),
+    date: z.string().or(z.date()),
 })
 
 export const LoanByIdSchema = z.object({
