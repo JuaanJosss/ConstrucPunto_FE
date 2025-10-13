@@ -19,8 +19,6 @@ const URLS = {
 export async function createLoan(loan: LoanFormType) {
     try {
         const body = loan.delivery?.name !== '' ? createBody(loan, true) : createBody(loan, false);
-        console.log(body);
-
         const response = await API.post(`${CONTROLLER_URL}/${URLS.SAVE}`, body);
         return response.status
     } catch (error: any) {
@@ -135,6 +133,7 @@ function createBody(loan: LoanFormType, existeDelivery: boolean) {
         return {
             clientId: loan.clientId,
             deposit: loan.deposit,
+            date: loan.date,
             delivery: {
                 cedula: loan.deliveryCedula,
                 name: loan.delivery?.name,
@@ -149,6 +148,7 @@ function createBody(loan: LoanFormType, existeDelivery: boolean) {
     return {
         clientId: loan.clientId,
         deposit: loan.deposit,
+        date: loan.date,
         deliveryCedula: loan.deliveryCedula,
         deliveryPrice: loan.deliveryPrice,
         comments: loan.comments,

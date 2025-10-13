@@ -20,3 +20,7 @@ export interface INoReturnedFieldForm {
     equipment: string;
     quantityNoReturned: string
 }
+
+export interface IReturnFieldDate {
+    date: string
+}

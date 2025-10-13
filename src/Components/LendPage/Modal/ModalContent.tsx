@@ -137,13 +137,15 @@ export function ModalContent({ client, toolsList, handlerSubmit }: IModalContent
                         id="comments"
                         classAdd="w-full"
                         {...register('comments',
-                            { pattern: onlyLettersPatternValidator, required: requiredValidator })}
+                            { pattern: onlyLettersPatternValidator })}
                         error={errors.comments} />
                     <CustomFormField.Input
                         label="Fecha"
                         type="date"
                         id="date"
-                        {...register('date', { required: requiredValidator })}
+                        {...register('date', {
+                            required: requiredValidator
+                        })}
                         error={errors.date} />
                 </div>
                 <CustomButton type="submit" classAdd="bg-green-500 hover:bg-green-600 text-white font-semibold w-full">Terminar Proceso e imprimir</CustomButton>

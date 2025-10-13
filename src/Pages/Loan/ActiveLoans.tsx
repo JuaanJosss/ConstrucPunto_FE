@@ -12,7 +12,7 @@ import ModalContentDetailLoan from "@/Components/ActiveLoans/ModalContentInvoice
 import Paragraph from "@/Components/Shared/Paragraph";
 import SearcBar from "@/Components/LendPage/SearcBar";
 import toast from "react-hot-toast";
-import type { ILoanSearchType } from "@/Types/FormType";
+import type { ILoanSearchType, IReturnFieldDate } from "@/Types/FormType";
 import type { LoanType } from "@/Types/LoanTypes";
 import useClearSearchbarHook from "@/hooks/ClearSearchbarHook";
 
@@ -22,6 +22,9 @@ export default function ViewActivedLoans() {
     const [promiId, setPromiId] = useState<number | null>(null);
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<ILoanSearchType>({ defaultValues: { document: '', date: '' } })
+    const { register: registerDateReturn,
+        handleSubmit: handleDateReturn,
+        formState: { errors: errorsDateReturn } } = useForm<IReturnFieldDate>({ defaultValues: { date: '' } })
     const { isFilteredActive, toggleButton, setIsFilteredActive, filter, setFilter } = useClearSearchbarHook({ func: () => getLoans(true), setArrayValue: setData, reset: reset });
 
     useEffect(() => {
@@ -74,7 +77,7 @@ export default function ViewActivedLoans() {
                     {filter && <FilterInfo fecha={filter[0]} document={filter[1]} />}
                     {isFilteredActive && <CustomButton onClick={toggleButton} type="button" classAdd="justify-self-start bg-gray-200 hover:bg-gray-300"> Borrar filtro  </CustomButton>}
                 </div>
-                <h1 className="text-2xl relative font-semibold text-center p-2 col-start-2 ">{data.length < 1 ? 'No hay prestamos activos' : 'Préstamos Activos'}</h1>
+                <h1 className="text-2xl relative font-semibold text-center p-2 col-start-2 ">{data.length < 1 ? 'No hay préstamos activos' : 'Préstamos Activos'}</h1>
                 <div className="overflow-y-scroll h-[calc(100vh-220px)]">
                     {data?.map((pre, i) => (
                         <div key={i} className={`flex justify-between items-center py-2 px-4 ${i % 2 === 0 ? 'bg-gray-100' : ''}`}>
@@ -82,7 +85,7 @@ export default function ViewActivedLoans() {
                                 <div className="space-x-6 border-gray-400 flex flex-col">
                                     <span className="text-2xl">{pre.clientName}</span>
                                     <Paragraph section="Documento" text={pre.cedula} />
-                                    <Paragraph section="Fecha" text={pre.date} />
+                                    <Paragraph section="Fecha de inicio" text={pre.date} />
                                 </div>
 
                                 <div>
@@ -110,7 +113,7 @@ export default function ViewActivedLoans() {
 
 
             <Modal isOpen={isOpen} onClose={switchModal} title="Detalle">
-                {promiId && <ModalContentDetailLoan promissoryId={promiId} onCloser={handlerButton} />}
+                {promiId && <ModalContentDetailLoan promissoryId={promiId} onCloser={handleDateReturn(handlerButton)} register={registerDateReturn} error={errorsDateReturn} />}
             </Modal>
         </>
     )

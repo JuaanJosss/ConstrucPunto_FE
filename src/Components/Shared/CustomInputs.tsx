@@ -24,6 +24,7 @@ export function Input({ label, id, type = 'text', classAdd = '', error, ...props
                     className={`${communClass}`}
                     {...props}
                     type={type}
+                    min={type === 'date' ? new Date().toISOString().split("T")[0] : new Date().toISOString().split("T")[0]}
                     placeholder={label} />
                 {error && <ErrorMessage message={error.message!} />}
             </div>

@@ -49,8 +49,6 @@ export default function useLendingPageHook() {
 
 
     const handlerSubmit = async (data: LoanFormType) => {
-        console.log(data);
-
         const response = await createLoan(data);
         if (response === 200 || response === 201) {
             toast.success(`¡El pagaré ${toastMessages.createdSuccess}`);
