@@ -1,5 +1,5 @@
 import { API } from "@/lib/API";
-import type { ILoanSearchType } from "@/Types/FormType";
+import type { ILoanSearchType, IReturnFieldDate } from "@/Types/FormType";
 import { LoanSchema, type LoanByIdType, type LoanFormType, type LoanType } from "@/Types/LoanTypes";
 import type { AxiosError } from "axios";
 import toast from "react-hot-toast";
@@ -36,9 +36,9 @@ export async function createNewLoanAndGenerate(promissoryNoteId: string, body: {
 }
 
 
-export async function createInvoice(promissoryNoteId: number) {
+export async function createInvoice(promissoryNoteId: number, date: IReturnFieldDate['date']) {
     try {
-        const response = await API.post(`${CONTROLLER_URL}/${URLS.GENERATE_INVOICE}/${promissoryNoteId}`);
+        const response = await API.post(`${CONTROLLER_URL}/${URLS.GENERATE_INVOICE}/${promissoryNoteId}`, { body: { date } });
         return response.status
     } catch (error: any) {
 

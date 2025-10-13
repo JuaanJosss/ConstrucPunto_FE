@@ -40,8 +40,8 @@ export default function ViewActivedLoans() {
         setIsOpen(!isOpen);
     }
 
-    const handlerButton = async () => {
-        await createInvoice(promiId!);
+    const handlerButton = async (data: IReturnFieldDate) => {
+        await createInvoice(promiId!, data.date);
         await getLoans(true).then(setData);
         switchModal();
         toast.success(`¡La factura del pagaré ${promiId} ${toastMessages.createdSuccess}`)
