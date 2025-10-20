@@ -31,7 +31,10 @@ export default function EditReturnEquipmHook() {
 
 
     useEffect(() => {
+
+
         if (params.promissoryNoteId && params.date) {
+            setDate(params.date)
             if (isNumber(params.promissoryNoteId)) {
                 getLoanByPromissoryId(Number(params.promissoryNoteId)).then(setLoan)
             }
@@ -39,7 +42,7 @@ export default function EditReturnEquipmHook() {
         else {
             navigate(`/${routes.LEND.VIEW_ACTIVE}`)
         }
-    }, [params, navigate, setLoan])
+    }, [params, navigate, setLoan, setDate])
 
 
 
@@ -92,7 +95,7 @@ export default function EditReturnEquipmHook() {
             }
         })
         await createNewLoanAndGenerate(params.promissoryNoteId!, body!, date);
-        toast.success(`${toastMessages.createdSuccess}`);
+        toast.success(`La factura ${toastMessages.createdSuccess} y se generó nuevo activo`);
         navigate(`/${routes.LEND.VIEW_ACTIVE}`);
     }
 

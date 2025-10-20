@@ -35,7 +35,7 @@ export default function ModalContentDetailLoan({ promissoryId, onCloser, registe
             navigator(`/${routes.FORMS}/${routes.LEND.EDIT_RETURN}/${promissoryId}/${getValues!('date')}`)
         }
         else {
-            toast.error('Requiere la fecha');
+            toast.error('Requiere la fecha de devolución');
         }
     }
 
