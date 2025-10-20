@@ -26,9 +26,14 @@ export async function createLoan(loan: LoanFormType) {
     }
 }
 
-export async function createNewLoanAndGenerate(promissoryNoteId: string, body: { equipmentId: string, quantity: string }[]) {
+export async function createNewLoanAndGenerate(promissoryNoteId: string, body: { equipmentId: string, quantity: string }[], date: string) {
     try {
-        const response = await API.post(`${CONTROLLER_URL}/${URLS.PARTIAL_RETURN}/${promissoryNoteId}`, body);
+        const payload = {
+            partialReturnDtos: body,
+            date
+        }
+
+        const response = await API.post(`${CONTROLLER_URL}/${URLS.PARTIAL_RETURN}/${promissoryNoteId}`, payload);
         return response.status
     } catch (error: any) {
         throw error;
@@ -38,7 +43,7 @@ export async function createNewLoanAndGenerate(promissoryNoteId: string, body: {
 
 export async function createInvoice(promissoryNoteId: number, date: IReturnFieldDate['date']) {
     try {
-        const response = await API.post(`${CONTROLLER_URL}/${URLS.GENERATE_INVOICE}/${promissoryNoteId}`, { body: { date } });
+        const response = await API.post(`${CONTROLLER_URL}/${URLS.GENERATE_INVOICE}/${promissoryNoteId}`, { date });
         return response.status
     } catch (error: any) {
 

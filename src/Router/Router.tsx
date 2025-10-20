@@ -31,7 +31,7 @@ export default function Router() {
 
 
                     <Route path={routes.FORMS}>
-                        <Route path={`${routes.LEND.EDIT_RETURN}/:promissoryNoteId?`} Component={EditReturnEquipm} />
+                        <Route path={`${routes.LEND.EDIT_RETURN}/:promissoryNoteId/:date?`} Component={EditReturnEquipm} />
                         <Route path={`${routes.CLIENT.FIND}/:document?`} Component={FindClient} />
                         <Route path={routes.CLIENT.REGISTER} Component={NewClient} />
                         <Route path={`${routes.CLIENT.REGISTER_LOAN}`} Component={NewClient} />

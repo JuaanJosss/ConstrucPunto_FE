@@ -14,6 +14,7 @@ export default function EditReturnEquipmHook() {
     const navigate = useNavigate();
     const [loan, setLoan] = useState<LoanByIdType>()
     const [noReturnedList, setNoReturnedList] = useState<EquipsEdited[] | null>(null)
+    const [date, setDate] = useState<string>('')
     const [maxReturn, setMax] = useState<number>(0);
     const { register, handleSubmit, reset, formState: { errors } } = useForm<INoReturnedFieldForm>(
         { defaultValues: { equipment: loan?.loanEquipments[0].toString(), quantityNoReturned: "" } });
@@ -28,7 +29,8 @@ export default function EditReturnEquipmHook() {
 
 
     useEffect(() => {
-        if (params.promissoryNoteId) {
+        if (params.promissoryNoteId && params.date) {
+            setDate(params.date)
             if (isNumber(params.promissoryNoteId)) {
                 getLoanByPromissoryId(Number(params.promissoryNoteId)).then(setLoan)
             }
@@ -88,8 +90,8 @@ export default function EditReturnEquipmHook() {
                 "quantity": e.returns
             }
         })
-        await createNewLoanAndGenerate(params.promissoryNoteId!, body!);
-        navigate(`/${routes.LEND.VIEW_ACTIVE}`)
+        await createNewLoanAndGenerate(params.promissoryNoteId!, body!, date);
+        navigate(`/${routes.LEND.VIEW_ACTIVE}`);
     }
 
 

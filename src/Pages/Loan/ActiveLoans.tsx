@@ -22,9 +22,8 @@ export default function ViewActivedLoans() {
     const [promiId, setPromiId] = useState<number | null>(null);
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<ILoanSearchType>({ defaultValues: { document: '', date: '' } })
-    const { register: registerDateReturn,
-        handleSubmit: handleDateReturn,
-        formState: { errors: errorsDateReturn } } = useForm<IReturnFieldDate>({ defaultValues: { date: '' } })
+    const { register: registerReturn, handleSubmit: handlerSubmitReturn, formState: { errors: errorReturn }, getValues } = useForm<IReturnFieldDate>({ defaultValues: { date: '' } })
+
     const { isFilteredActive, toggleButton, setIsFilteredActive, filter, setFilter } = useClearSearchbarHook({ func: () => getLoans(true), setArrayValue: setData, reset: reset });
 
     useEffect(() => {
@@ -46,6 +45,7 @@ export default function ViewActivedLoans() {
         switchModal();
         toast.success(`¡La factura del pagaré ${promiId} ${toastMessages.createdSuccess}`)
     }
+
 
     const handlerFilter = async (data: ILoanSearchType) => {
         if (!data.date && !data.document) {
@@ -85,7 +85,7 @@ export default function ViewActivedLoans() {
                                 <div className="space-x-6 border-gray-400 flex flex-col">
                                     <span className="text-2xl">{pre.clientName}</span>
                                     <Paragraph section="Documento" text={pre.cedula} />
-                                    <Paragraph section="Fecha de inicio" text={pre.date} />
+                                    <Paragraph section="Fecha de inicio" text={pre.deliveryDate} />
                                 </div>
 
                                 <div>
@@ -113,8 +113,15 @@ export default function ViewActivedLoans() {
 
 
             <Modal isOpen={isOpen} onClose={switchModal} title="Detalle">
-                {promiId && <ModalContentDetailLoan promissoryId={promiId} onCloser={handleDateReturn(handlerButton)} register={registerDateReturn} error={errorsDateReturn} />}
+                {promiId && <ModalContentDetailLoan
+                    promissoryId={promiId}
+                    onCloser={handlerSubmitReturn(handlerButton)}
+                    error={errorReturn}
+                    register={registerReturn}
+                    getValues={getValues} />}
             </Modal>
+
+
         </>
     )
 }

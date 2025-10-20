@@ -74,7 +74,7 @@ export default function HistoryLoans() {
                                 <div className="space-x-6 border-gray-400 flex flex-col ">
                                     <span className="text-2xl">{pre.clientName}</span>
                                     <Paragraph section="Documento" text={pre.cedula} />
-                                    <Paragraph section="Fecha de devolución" text={pre.date} />
+                                    <Paragraph section="Fecha de devolución" text={pre.returnDate} />
                                 </div>
 
                                 <div>

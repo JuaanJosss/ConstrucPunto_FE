@@ -16,11 +16,13 @@ export default function NewClient() {
 
     const handlerSubmit = async (data: ClientType) => {
         await saveClient(data);
-        setClient(data);
         toast.success(`¡El usuario ${toastMessages.createdSuccess}`)
 
-        location.pathname === `/${routes.FORMS}/${routes.CLIENT.REGISTER_LOAN}` ?
-            navigator(`/${routes.FORMS}/${routes.CLIENT.FIND}/${data.cedula}`) :
+        if (location.pathname === `/${routes.FORMS}/${routes.CLIENT.REGISTER_LOAN}`) {
+            setClient(data);
+            navigator(`/${routes.FORMS}/${routes.CLIENT.FIND}/${data.cedula}`)
+        }
+        else
             navigator(`/${routes.CLIENT.CLIENT_MANAGEMENT}`)
     }
 
