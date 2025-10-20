@@ -7,6 +7,8 @@ import { useNavigate, useParams } from 'react-router';
 import type { EquipsEdited } from '@/Types/EquipmentTypes';
 import type { INoReturnedFieldForm } from '@/Types/FormType';
 import type { LoanByIdType } from '@/Types/LoanTypes';
+import toast from 'react-hot-toast';
+import { toastMessages } from '@/helpers/toastMessages';
 
 
 export default function EditReturnEquipmHook() {
@@ -30,13 +32,12 @@ export default function EditReturnEquipmHook() {
 
     useEffect(() => {
         if (params.promissoryNoteId && params.date) {
-            setDate(params.date)
             if (isNumber(params.promissoryNoteId)) {
                 getLoanByPromissoryId(Number(params.promissoryNoteId)).then(setLoan)
             }
-            else {
-                navigate(`/${routes.LEND.VIEW_ACTIVE}`)
-            }
+        }
+        else {
+            navigate(`/${routes.LEND.VIEW_ACTIVE}`)
         }
     }, [params, navigate, setLoan])
 
@@ -91,6 +92,7 @@ export default function EditReturnEquipmHook() {
             }
         })
         await createNewLoanAndGenerate(params.promissoryNoteId!, body!, date);
+        toast.success(`${toastMessages.createdSuccess}`);
         navigate(`/${routes.LEND.VIEW_ACTIVE}`);
     }
 

@@ -10,6 +10,7 @@ import { requiredValidator } from "@/validations/validation";
 import { useNavigate } from "react-router";
 import { routes } from "@/Router/routes";
 import { Modal } from "../Shared/Modal";
+import toast from "react-hot-toast";
 
 interface props {
     promissoryId: number,
@@ -30,7 +31,12 @@ export default function ModalContentDetailLoan({ promissoryId, onCloser, registe
 
 
     const handlerDegress = () => {
-        navigator(`/${routes.FORMS}/${routes.LEND.EDIT_RETURN}/${promissoryId}/${getValues!('date')}`)
+        if (getValues!('date') !== '') {
+            navigator(`/${routes.FORMS}/${routes.LEND.EDIT_RETURN}/${promissoryId}/${getValues!('date')}`)
+        }
+        else {
+            toast.error('Requiere la fecha');
+        }
     }
 
     const handlerRequestModal = () => {
@@ -55,10 +61,13 @@ export default function ModalContentDetailLoan({ promissoryId, onCloser, registe
                         label="Fecha de devolución" error={error.date}
                         {...register('date', { required: requiredValidator })} />}
 
-                <CustomButton
-                    type="submit" onClick={handlerRequestModal}
-                    classAdd="bg-green-500 hover:bg-green-600 text-white font-semibold w-full "
-                    disabled={isReserved}>{isReserved ? 'Es Reserva, no puedes generar factura' : 'Generar Factura'} </CustomButton>
+                {!invoice.deliveryReturn &&
+                    <CustomButton
+                        type="submit" onClick={handlerRequestModal}
+                        classAdd="bg-green-500 hover:bg-green-600 text-white font-semibold w-full "
+                        disabled={isReserved}>{isReserved ? 'Es Reserva, no puedes generar factura' : 'Generar Factura'}
+                    </CustomButton>
+                }
 
 
 
