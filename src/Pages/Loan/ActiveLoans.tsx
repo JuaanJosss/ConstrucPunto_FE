@@ -28,7 +28,7 @@ export default function ViewActivedLoans() {
 
     useEffect(() => {
         getLoans(true).then(setData)
-    }, []);
+    }, [setData]);
 
     const getPromissoryId = (id: number) => {
         setPromiId(id);
@@ -51,14 +51,12 @@ export default function ViewActivedLoans() {
         if (!data.date && !data.document) {
             return;
         }
-
         const record: Record<number, string> = { 0: data.date, 1: data.document };
         setFilter(record);
-
         await getLoanPerDocumentOrDate(data, true).then(setData);
+
         setIsFilteredActive(true);
     }
-
 
     return (
         <>
@@ -78,37 +76,39 @@ export default function ViewActivedLoans() {
                     {isFilteredActive && <CustomButton onClick={toggleButton} type="button" classAdd="justify-self-start bg-gray-200 hover:bg-gray-300"> Borrar filtro  </CustomButton>}
                 </div>
                 <h1 className="text-2xl relative font-semibold text-center p-2 col-start-2 ">{data.length < 1 ? 'No hay préstamos activos' : 'Préstamos Activos'}</h1>
-                <div className="overflow-y-scroll h-[calc(100vh-220px)]">
-                    {data?.map((pre, i) => (
-                        <div key={i} className={`flex justify-between items-center py-2 px-4 ${i % 2 === 0 ? 'bg-gray-100' : ''}`}>
-                            <div>
-                                <div className="space-x-6 border-gray-400 flex flex-col">
-                                    <span className="text-2xl">{pre.clientName}</span>
-                                    <Paragraph section="Documento" text={pre.cedula} />
-                                    <Paragraph section="Fecha de inicio" text={pre.deliveryDate} />
-                                </div>
-
+                {data && (
+                    <div className="overflow-y-scroll h-[calc(100vh-220px)]">
+                        {data?.map((pre, i) => (
+                            <div key={i} className={`flex justify-between items-center py-2 px-4 ${i % 2 === 0 ? 'bg-gray-100' : ''}`}>
                                 <div>
-                                    <h4 className="text-gray-400">Equipos Prestados</h4>
-                                    <div className="ml-4">
-                                        {pre.equipmentName.slice(0, 2).map((e, i) => (
-                                            <span key={i} className="flex items-center">{e}</span>
-                                        ))}
+                                    <div className="space-x-6 border-gray-400 flex flex-col">
+                                        <span className="text-2xl">{pre.clientName}</span>
+                                        <Paragraph section="Documento" text={pre.cedula} />
+                                        <Paragraph section="Fecha de inicio" text={pre.deliveryDate!} />
+                                    </div>
 
-                                        {pre.equipmentName.length > 2 && (
-                                            <span className="flex items-center text-gray-500">+Equipos</span>
-                                        )}
+                                    <div>
+                                        <h4 className="text-gray-400">Equipos Prestados</h4>
+                                        <div className="ml-4">
+                                            {pre.equipmentName.slice(0, 2).map((e, i) => (
+                                                <span key={i} className="flex items-center">{e}</span>
+                                            ))}
+
+                                            {pre.equipmentName.length > 2 && (
+                                                <span className="flex items-center text-gray-500">+Equipos</span>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <CustomButton
-                                type="button"
-                                onClick={() => getPromissoryId(pre.promissoryNoteId)}
-                                classAdd="bg-blue-500 hover:bg-blue-700 text-white">Ver detalle</CustomButton>
-                        </div>
-                    ))}
-                </div>
+                                <CustomButton
+                                    type="button"
+                                    onClick={() => getPromissoryId(pre.promissoryNoteId)}
+                                    classAdd="bg-blue-500 hover:bg-blue-700 text-white">Ver detalle</CustomButton>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </BoxContainer >
 
 

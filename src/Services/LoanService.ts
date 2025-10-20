@@ -53,6 +53,8 @@ export async function createInvoice(promissoryNoteId: number, date: IReturnField
 
 export async function getLoans(isActive: boolean) {
     try {
+
+
         const response = await API.get<LoanType[]>(`${CONTROLLER_URL}/${URLS.FIND_ALL}`,
             {
                 params: { active: isActive }
@@ -66,13 +68,12 @@ export async function getLoans(isActive: boolean) {
 export async function getLoanPerDocumentOrDate(data: ILoanSearchType, IsActive: boolean) {
     try {
         const params = createParam(data, IsActive);
-        console.log(params);
-
         const response = await API.get<LoanType[]>(`${CONTROLLER_URL}/${URLS.FILTER}`, { params });
-
 
         const parsed = z.array(LoanSchema).safeParse(response.data);
         if (!parsed.success) {
+            console.log(parsed.error);
+
             return getLoans(IsActive)
         }
 

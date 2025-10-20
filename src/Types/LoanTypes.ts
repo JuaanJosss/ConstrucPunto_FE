@@ -3,7 +3,7 @@ import z from "zod";
 export const LoanSchema = z.object({
     cedula: z.number().or(z.string()),
     clientName: z.string(),
-    returnDate: z.string(),
+    returnDate: z.string().nullable(),
     deliveryDate: z.string(),
     equipmentName: z.array(z.string()),
     promissoryNoteId: z.number()
