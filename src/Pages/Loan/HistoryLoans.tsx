@@ -58,7 +58,7 @@ export default function HistoryLoans() {
                     error={errors.document}
                     {...register('document', { pattern: { value: numberPattern.reGex, message: numberPattern.message } })}
                     label="Busca por cédula" >
-                    <CustomFormField.Input id="date" label="Fecha" type="date" {...register('date')} />
+                    <CustomFormField.InputDate id="date" label="Fecha" type="date" {...register('date')} />
                 </SearcBar>
             </BoxContainer>
             <BoxContainer>
@@ -74,7 +74,7 @@ export default function HistoryLoans() {
                                 <div className="space-x-6 border-gray-400 flex flex-col ">
                                     <span className="text-2xl">{pre.clientName}</span>
                                     <Paragraph section="Documento" text={pre.cedula} />
-                                    <Paragraph section="Fecha de devolución" text={pre.returnDate} />
+                                    <Paragraph section="Fecha de devolución" text={pre.returnDate!} />
                                 </div>
 
                                 <div>

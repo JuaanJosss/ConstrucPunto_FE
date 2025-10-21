@@ -139,8 +139,7 @@ export function ModalContent({ client, toolsList, handlerSubmit }: IModalContent
                         {...register('comments',
                             { pattern: onlyLettersPatternValidator })}
                         error={errors.comments} />
-                    <CustomFormField.Input
-                        label="Fecha"
+                    <CustomFormField.InputDate label="Fecha"
                         type="date"
                         id="date"
                         {...register('date', {

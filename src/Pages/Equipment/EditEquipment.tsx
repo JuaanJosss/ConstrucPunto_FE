@@ -17,7 +17,7 @@ export default function EditEquipment() {
         if (!params.id) {
             navigate(routes.EQUIPMENT.EQUIPMENT_MANAGEMENT)
         }
-        getEquipmentById(params.id!).then(setTool)
+        getEquipmentById(Number(params.id!)).then(setTool)
     }, [params, navigate, setTool])
 
 

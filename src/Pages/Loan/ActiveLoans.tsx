@@ -67,7 +67,7 @@ export default function ViewActivedLoans() {
                     error={errors.document}
                     {...register('document', { pattern: numberPatternValidator })}
                     label="Busca por cédula" >
-                    <CustomFormField.Input id="date" label="Fecha" type="date" {...register('date')} />
+                    <CustomFormField.InputDate id="date" label="Fecha" type="date" {...register('date')} />
                 </SearcBar>
             </BoxContainer>
             <BoxContainer>
@@ -84,7 +84,7 @@ export default function ViewActivedLoans() {
                                     <div className="space-x-6 border-gray-400 flex flex-col">
                                         <span className="text-2xl">{pre.clientName}</span>
                                         <Paragraph section="Documento" text={pre.cedula} />
-                                        <Paragraph section="Fecha de inicio" text={pre.deliveryDate!} />
+                                        <Paragraph section="Fecha de inicio" text={pre.deliveryDate} />
                                     </div>
 
                                     <div>

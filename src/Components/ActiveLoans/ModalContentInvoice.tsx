@@ -57,7 +57,7 @@ export default function ModalContentDetailLoan({ promissoryId, onCloser, registe
                 <LoanModalContent.loanInformation deposit={invoice.deposit} deliveryPrice={invoice.deliveryPrice} total={invoice.total} totalDays={invoice.totalDays} />
 
                 {!isReserved && error && register &&
-                    <CustomFormField.Input id="date" type="date"
+                    <CustomFormField.InputDate id="date" type="date"
                         label="Fecha de devolución" error={error.date}
                         {...register('date', { required: requiredValidator })} />}
 
