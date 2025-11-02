@@ -1,7 +1,7 @@
 import { formatCurrency } from '@/helpers/formatters'
 import type { EquipmentTypeToListType } from '@/Types/EquipmentTypes'
 
-export default function TableOfToolsModal({ toolsList }: { toolsList: EquipmentTypeToListType[] }) {
+export default function TableProductsLean({ toolsList }: { toolsList: EquipmentTypeToListType[] }) {
     return (
         <div className="border-2 p-1">
             <ul className="grid grid-cols-4 place-items-center w-full font-semibold border-b ">

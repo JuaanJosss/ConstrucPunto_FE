@@ -1,16 +1,9 @@
 import { routes } from "@/Router/routes";
 import type { ILinks } from "@/Types/Types";
 import { Folders, Plus, Clipboard, Wrench } from "lucide-react";
-import { useState } from "react";
 
 
 export default function useAsideHook() {
-    const [lendingOptions, setLendingOptions] = useState<boolean>(false);
-
-    function SwitchLendingOptions() {
-        setLendingOptions(!lendingOptions);
-    }
-
     const Links: ILinks[] = [
         {
             links: [`${routes.FORMS}/${routes.CLIENT.FIND}`, `${routes.LEND.VIEW_ACTIVE}`, `${routes.LEND.HISTORY}`],
@@ -29,10 +22,7 @@ export default function useAsideHook() {
         }
     ]
 
-
     return {
-        Links,
-        lendingOptions,
-        SwitchLendingOptions
+        Links
     }
 }

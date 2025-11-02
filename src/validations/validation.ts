@@ -1,4 +1,4 @@
-import { addressPattern, justLettersPattern, numberPattern } from "@/Patterns/formsPatterns"
+import { addressPattern, documentPattern, justLettersPattern, numberPattern } from "@/Patterns/formsPatterns"
 import type { ValidationRule } from "react-hook-form"
 
 
@@ -26,4 +26,9 @@ export const addressPatternValidator: ValidationRule<RegExp> = {
 export const onlyLettersPatternValidator: ValidationRule<RegExp> = {
     value: justLettersPattern.reGex,
     message: justLettersPattern.message
+}
+
+export const documentValidator: ValidationRule<RegExp> = {
+    value: documentPattern.reGex,
+    message: documentPattern.message
 }

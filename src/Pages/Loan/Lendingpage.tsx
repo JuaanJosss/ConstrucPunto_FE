@@ -1,8 +1,6 @@
 import ToolsSearched from "@/Components/LendPage/ToolsSearched";
-
 import { Modal } from "@/Components/Shared/Modal";
 import { ModalContent } from "@/Components/LendPage/Modal/ModalContent";
-
 import SearcBar from "@/Components/LendPage/SearcBar";
 import useLendingPageHook from "@/hooks/LendingPageHook";
 import BoxContainer from "@/Components/Shared/BoxContainer";
@@ -15,7 +13,7 @@ import { ToolListMemoized } from "@/Components/LendPage/ListTools";
 
 
 export default function Lendingpage() {
-    const { client, toolsList, isOpen, equipments, switchOpen, handlerSubmit, setEquipment, toggleButton, handlerCancelLoan, handleSubmit, isFilteredActive, register, setIsFilteredActive, errors } = useLendingPageHook();
+    const { client, toolsList, isOpen, equipments, switchModal, handlerSubmit, setEquipment, toggleButton, handlerCancelLoan, handleSubmit, isFilteredActive, register, setIsFilteredActive, errors } = useLendingPageHook();
 
 
     const handlerFilter = async (data: IFindEquipmentByName) => {
@@ -57,7 +55,7 @@ export default function Lendingpage() {
                 <ToolListMemoized toolsList={toolsList} />
 
                 <CustomButton
-                    type="button" onClick={switchOpen}
+                    type="button" onClick={switchModal}
                     classAdd="bg-blue-300 hover:bg-blue-400 text-blue-600 hover:text-white disabled:text-blue-600 w-full"
                     disabled={toolsList.length < 1}>
                     Continuar
@@ -65,7 +63,7 @@ export default function Lendingpage() {
             </div>
 
 
-            <Modal title="Pagaré" isOpen={isOpen} onClose={switchOpen} height="h-[650px] overflow-y-scroll" width="w-[50%]" >
+            <Modal title="Pagaré" isOpen={isOpen} onClose={switchModal} height="h-[650px] overflow-y-scroll" width="w-[50%]" >
                 <ModalContent client={client!} toolsList={toolsList} handlerSubmit={handlerSubmit} />
             </Modal>
         </div>

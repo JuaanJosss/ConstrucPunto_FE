@@ -26,7 +26,7 @@ export async function createLoan(loan: LoanFormType) {
     }
 }
 
-export async function createNewLoanAndGenerate(promissoryNoteId: string, body: { equipmentId: string, quantity: string }[], date: string) {
+export async function createNewLoanAndGenerate(promissoryNoteId: LoanType['promissoryNoteId'], body: { equipmentId: string, quantity: string }[], date: string) {
     try {
         const payload = {
             partialReturnDtos: body,
@@ -41,7 +41,7 @@ export async function createNewLoanAndGenerate(promissoryNoteId: string, body: {
 }
 
 
-export async function createInvoice(promissoryNoteId: number, date: IReturnFieldDate['date']) {
+export async function createInvoice(promissoryNoteId: LoanType['promissoryNoteId'], date: IReturnFieldDate['date']) {
     try {
         const response = await API.post(`${CONTROLLER_URL}/${URLS.GENERATE_INVOICE}/${promissoryNoteId}`, { date });
         return response.status
@@ -97,7 +97,7 @@ export async function getLoanPerDocumentOrDate(data: ILoanSearchType, IsActive: 
     }
 }
 
-export async function getLoanByPromissoryId(promissoryId: number) {
+export async function getLoanByPromissoryId(promissoryId: LoanType['promissoryNoteId']) {
     try {
         const response = await API.get<LoanByIdType>(`${CONTROLLER_URL}/${URLS.FIND_LOAN}`, {
             params: { promissoryId }

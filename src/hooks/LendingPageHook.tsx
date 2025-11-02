@@ -13,10 +13,10 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { useShallow } from "zustand/shallow";
 import useClearSearchbarHook from "./ClearSearchbarHook";
+import ModalHooks from "./ModalHooks";
 
 export default function useLendingPageHook() {
     const navigate = useNavigate()
-    const [isOpen, setIsOpen] = useState(false);
     const [equipments, setEquipment] = useState<EquipmentType[]>([]);
 
     const setTools = useEquipmentsStore(useShallow(state => state.setTools));
@@ -27,10 +27,8 @@ export default function useLendingPageHook() {
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<IFindEquipmentByName>({ defaultValues: { equipment: '' } })
     const { toggleButton, isFilteredActive, setIsFilteredActive } = useClearSearchbarHook({ setArrayValue: setEquipment, func: getEquipment, reset })
+    const { isOpen, switchModal } = ModalHooks()
 
-    const switchOpen = (): void => {
-        setIsOpen(!isOpen);
-    }
 
     useEffect(() => {
         getEquipment().then(setEquipment);
@@ -53,7 +51,7 @@ export default function useLendingPageHook() {
         if (response === 200 || response === 201) {
             toast.success(`¡El pagaré ${toastMessages.createdSuccess}`);
             navigate(`/${routes.LEND.VIEW_ACTIVE_COMPLETED}`, { replace: true });
-            setIsOpen(false);
+            switchModal()
         }
         else {
             toast.error('Revisar los datos')
@@ -74,7 +72,7 @@ export default function useLendingPageHook() {
         setEquipment,
 
         //? modal
-        switchOpen,
+        switchModal,
         handlerSubmit,
 
         //? SerachBar

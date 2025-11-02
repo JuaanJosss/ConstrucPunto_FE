@@ -21,7 +21,6 @@ export default function Router() {
         <BrowserRouter>
             <Routes>
                 <Route path={routes.HOME} Component={Dashboard}>
-                    <Route path={routes.HOME} Component={ViewActivedLoans} />
                     <Route path={routes.CLIENT.CLIENT_MANAGEMENT} Component={ClientManagement} />
                     <Route path={routes.EQUIPMENT.EQUIPMENT_MANAGEMENT} Component={EquipmentManagement} />
                     <Route path={routes.LEND.VIEW_ACTIVE} Component={ViewActivedLoans} />
